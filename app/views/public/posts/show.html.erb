@@ -1,0 +1,25 @@
+<h1>投稿詳細</h1>
+
+<table class="table">
+  <tbody>
+    <tr>  
+      <th>名称</th>
+      <td><%= @post.name %></td>
+    </tr>
+    <tr>  
+      <th>所在地</th>
+      <td><%= @post.address %></td>
+    </tr>
+    <tr>  
+      <th>詳細情報</th>
+      <td><%= simple_format @post.explanation %></td>
+    </tr>
+    <tr>  
+      <th>投稿日時</th>
+      <td><%= @post.created_at.to_s %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to "編集", edit_post_path(@post), class: "btn btn-warning" %>
+<%= link_to "一覧に戻る", posts_path, class: "btn btn-secondary" %>

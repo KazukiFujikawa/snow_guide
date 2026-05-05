@@ -1,3 +1,20 @@
 Rails.application.routes.draw do
+  devise_for :admins, path: "admin", controllers: {
+    sessions: "admin/admins/sessions"
+  }
+  devise_for :users, path: "/", controllers: {
+    registrations: "public/users/registrations",
+    sessions: "public/users/sessions"
+  }
+
+  scope module: :public do
+    root "home#top"
+    resources :posts
+  end
+
+  namespace :admin do
+    root "users#index"
+  end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
