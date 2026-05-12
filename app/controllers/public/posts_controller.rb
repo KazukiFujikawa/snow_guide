@@ -24,6 +24,8 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @review = current_user.reviews.find_or_initialize_by(post: @post)
     @average = @post.reviews.average(:evaluation).to_f
+    @comment = Comment.new
+    @comments = @post.comments
   end
 
   def edit

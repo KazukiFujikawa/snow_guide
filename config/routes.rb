@@ -10,15 +10,14 @@ Rails.application.routes.draw do
   scope module: :public do
     root "home#top"
     resources :posts do
-      resource :reviews, only: [:create, :update]
+      resource :reviews, only: [ :create ]
+      resources :comments, only: [ :create, :destroy ]
     end
   end
 
-
-
-
   namespace :admin do
     root "users#index"
+    resources :users, only: [:destroy]
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
