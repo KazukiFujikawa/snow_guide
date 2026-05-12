@@ -9,8 +9,13 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root "home#top"
-    resources :posts
+    resources :posts do
+      resource :reviews, only: [:create, :update]
+    end
   end
+
+
+
 
   namespace :admin do
     root "users#index"

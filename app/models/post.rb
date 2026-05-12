@@ -4,4 +4,5 @@ class Post < ApplicationRecord
   validates :explanation, presence: true
 
   belongs_to :user
+  has_many :reviews, dependent: :destroy
 end

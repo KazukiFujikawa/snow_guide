@@ -1,4 +1,4 @@
-<h1>投稿詳細</h1>
+<h1>投稿詳細<span id="raty_ave" class="ml-4"></span></h1>
 
 <table class="table">
   <tbody>
@@ -23,3 +23,49 @@
 
 <%= link_to "編集", edit_post_path(@post), class: "btn btn-warning" %>
 <%= link_to "一覧に戻る", posts_path, class: "btn btn-secondary" %>
+
+<h2>レビュー</h2>
+
+<%= form_with model: @review,
+              url: post_reviews_path(@post),
+              method: :post,
+              local: true do |f| %>
+  <%= f.label :evaluation, "⭐️の数で評価" %>
+  <div class="d-flex">
+    <div class="mr-2">
+      <div id="raty"></div>
+    </div>
+    <%= f.submit "投稿する", class: "btn btn-primary btn-sm" %>
+    </div>
+<% end %>
+
+<h2>レビュー一覧</h2>
+
+<!-- <%# @post.reviews.each do |review| %>
+  <div>
+    <p>評価：<%#= review.evaluation %></p>
+    <p>コメント：<%#= review.evaluation %></p>
+    <p>投稿者：<%#= review.user.name %></p>
+
+    <%# if review.user == current_user %>
+      <%#= link_to "削除", review_path(review), method: :delete %>
+    <%# end %>
+  </div>
+<%# end %> -->
+
+<script>
+  $('#raty').raty({
+    starOn: "<%= asset_path("star-on.png") %>",
+    starOff: "<%= asset_path("star-off.png") %>",
+    scoreName: "review[evaluation]",
+    score: "<%= @review.evaluation %>"
+  });
+
+  $('#raty_ave').raty({
+    starOn: "<%= asset_path("star-on.png") %>",
+    starOff: "<%= asset_path("star-off.png") %>",
+    starHalf: "<%= asset_path("star-half.png") %>",
+    readOnly: true,
+    score: "<%= @average %>"        
+  });
+</script>
