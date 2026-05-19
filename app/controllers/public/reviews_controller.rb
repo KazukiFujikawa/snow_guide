@@ -12,6 +12,6 @@ before_action :authenticate_user!
   private
 
   def review_params
-    params.require(:review).permit(:evaluation, :post_id)
+    params.require(:review).permit(:evaluation, :post_id, :image)
   end
 end

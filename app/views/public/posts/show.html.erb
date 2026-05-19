@@ -32,6 +32,9 @@
                   url: post_reviews_path(@post),
                   method: :post,
                   local: true do |f| %>
+
+      <%= f.label :image, "画像" %>
+      <%= f.file_field :image, accept: "image/*" %>
       <%= f.label :evaluation, "⭐️の数で評価" %>
       <div class="d-flex">
         <div class="mr-2">
@@ -50,6 +53,17 @@
     <% end %>
   </div>
 </div>
+
+<h2>レビュー一覧</h2>
+
+<% @post.reviews.each do |review| %>
+
+  <p>評価: <%= review.evaluation %></p>
+
+  <% if review.image.attached? %>
+    <%= image_tag review.image, width: 300 %>
+  <% end %>
+<% end %>
 
 <h2>コメント一覧</h2>
 
