@@ -1,4 +1,7 @@
 class Public::CommentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :correct_user, only: [:destroy]
+
   def create
     @post = Post.find(params[:post_id])
     @comment = current_user.comments.new(comment_params)
@@ -13,8 +16,6 @@ class Public::CommentsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
-    @comment = Comment.find(params[:id])
     flash[:notice] = "削除しました"
     @comment.destroy
     redirect_to post_path(@post)
@@ -25,5 +26,10 @@ class Public::CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body)
   end
-
+  
+  def correct_user
+    @post = Post.find(params[:post_id])
+    @comment = current_user.comments.find_by_id(params[:id])
+    redirect_to post_path(@post) unless @comment
+  end
 end
